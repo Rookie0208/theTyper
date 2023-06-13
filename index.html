@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Typer</title>
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow&family=Montserrat:wght@200&family=Noto+Sans:wght@300&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+    
+</style>
+<body>
+    <section id="main">
+        <div class="header">
+            <div class="nav-bar">
+                <div class="logo">TheTyper</div>
+                <div class="nav-btn">
+                    <a href="#" title="type"><i class="fa fa-keyboard"></i></a>
+                    <a href="#" title="leaderboard"><i class="fa fa-ranking-star"></i></a>
+                    <a href="#" title="about"><i class="fa fa-circle-info"></i></a>
+                    <a href="#" title="settings"><i class="fa fa-gear"></i></a>
+                </div>
+                <div class="profile">
+                    <a href="#" title="profile"><i class="fa fa-user"></i></a>
+                    <a href="#" title="notification"><i class="fa fa-light fa-bell"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="functions">
+            <div class="help-buttons">
+                <div class="help-btn">
+                    <h3 id="time" class="color-btn">time</h3>
+                    <h3 id="word" class="active color-btn ">word</h3>
+                    <h3 id="quote" class="color-btn ">quote</h3>
+                    <h3 id="zen" class="color-btn ">zen</h3>
+                    <h3 id="custom" class="color-btn ">custom</h3>
+                </div>
+                
+                <div class="state">
+                    <h3 id="15" class="active color-btn">15</h3>
+                    <h3 id="25" class="color-btn">25</h3>
+                    <h3 id="40" class="color-btn">40</h3>
+                    <h3 id="60" class="color-btn">60</h3>
+                    <h3 id="ct" class="color-btn">custom</h3>
+                </div>
+            </div>
+        </div>
+        <div class="main-container">
+            <div id="typing-content">
+                <p id="content-text">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam, iusto repellat, eum illo quidem beatae incidunt itaque at laborum quis vitae. Necessitatibus, explicabo! Incidunt a quis fuga voluptas esse quod, eligendi mollitia id officiis commodi, perspiciatis nesciunt, vitae nihil in.
+                </p>
+            </div>
+            <div class="function-btns">
+                <div class="fnc-btn">
+                    <h3 id="next-text">next</h3>
+                    <h3>restart</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <div class="foot-links-left">
+                    <h3 id="contact"><i class="fa-solid fa-envelope"></i>Contact</h3>
+                    <h3><i class="fa-solid fa-heart"></i>Support</h3>
+                    <h3><a href=""><i class="fa-brands fa-github"></i>GitHub</a></h3>
+                    <h3><a href=""><i class="fa-brands fa-discord"></i>Discord</a></h3>
+                    <h3><a href=""><i class="fa-brands fa-twitter"></i>Twitter</a></h3>
+                    <h3><i class="fa-solid fa-file"></i>T&C</h3>
+                    <h3><i class="fa-solid fa-shield-halved"></i>Secutity</h3>
+                    <h3><i class="fa-sharp fa-solid fa-eye-slash"></i>Privacy</h3>
+    
+                </div>
+                <div class="foot-links-right">
+                    <h3 id="toggle-modes">Modes</h3>
+                    <h3>v.0.0.0.1 </h3>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="modal-container" id="modal-box">
+            <div class="modal-content" id="modal-content-box">
+                <div class="modal-main-content">
+                    <div class="modal-main-text">
+                        <h2>Contact</h2>
+                        <p>Feel free to send an email to contact@thetyper.com. For business inquiries, email amit@thetyper.com (the buttons below will open the default mail client).
+                            <br> <br>
+                        Please do not send requests to delete account, update email, update name or clear personal bests - you can do that in the settings page.</p>
+                    </div>
+                    <div class="modal-main-btns">
+                        <a href="#">Question</a>
+                        <a href="#">Bug Report</a>
+                        <a href="#">Business Inquiry</a>
+                        <a href="#">Feedback</a>
+                        <a href="#">Account</a>
+                        <a href="#">Other</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+</body>
+<script src="content.js"></script>
+<script src="words25.js"></script>
+<script>
+    const opt = document.getElementById("15");
+    const time = document.getElementById("time");
+    const word = document.getElementById("word");
+    const colorBtn = document.querySelectorAll("h3");
+
+    colorBtn.forEach((ele) => {
+        ele.addEventListener("click", (t) => {
+            ele.classList.add('active');
+            // ele2.classList.remove('active');
+        // opt.classList.remove('active');
+    })
+    })
+</script>
+
+</html>
