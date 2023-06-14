@@ -54,7 +54,7 @@
         <div class="main-container">
             <div id="typing-content">
                 <p id="content-text">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam, iusto repellat, eum illo quidem beatae incidunt itaque at laborum quis vitae. Necessitatibus, explicabo! Incidunt a quis fuga voluptas esse quod, eligendi mollitia id officiis commodi, perspiciatis nesciunt, vitae nihil in.
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia animi tempore qui magni ex ducimus?
                 </p>
             </div>
             <div class="function-btns">
@@ -69,7 +69,7 @@
             <div class="footer-links">
                 <div class="foot-links-left">
                     <h3 id="contact"><i class="fa-solid fa-envelope"></i>Contact</h3>
-                    <h3><i class="fa-solid fa-heart"></i>Support</h3>
+                    <h3 id="support"><i class="fa-solid fa-heart"></i>Support</h3>
                     <h3><a href=""><i class="fa-brands fa-github"></i>GitHub</a></h3>
                     <h3><a href=""><i class="fa-brands fa-discord"></i>Discord</a></h3>
                     <h3><a href=""><i class="fa-brands fa-twitter"></i>Twitter</a></h3>
@@ -107,23 +107,34 @@
                 
             </div>
         </div>
+
+        <div class="modal-container" id="modal-box2">
+            <div class="modal-content" id="modal-content-box2">
+                <div class="modal-main-content">
+                    <div class="modal-main-text">
+                        <h2>Support</h2>
+                        <p>Thank you so much for thinking about supporting this project. It would not be possible without you and your continued support. 
+                            <br> <br>
+                        
+                    </div>
+                    <div class="modal-support-btns">
+                        <a href="#">Enable Ads</a>
+                        <a href="#">Watch a video</a>
+                        <a href="#">Become a Patron</a>
+                        <a href="#">Buy Merch</a>
+                        <a href="#">Donate</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
     </section>
 </body>
 <script src="content.js"></script>
-<script src="words25.js"></script>
+<script src="footerLinks.js"></script>
+<script src="app.js"></script>
 <script>
-    const opt = document.getElementById("15");
-    const time = document.getElementById("time");
-    const word = document.getElementById("word");
-    const colorBtn = document.querySelectorAll("h3");
-
-    colorBtn.forEach((ele) => {
-        ele.addEventListener("click", (t) => {
-            ele.classList.add('active');
-            // ele2.classList.remove('active');
-        // opt.classList.remove('active');
-    })
-    })
+    
 </script>
 
 </html>

@@ -36,10 +36,10 @@ const word25 = document.getElementById('25');
 let check = 0;
 
 nextText.onclick = () => {
-    if(check == 0) {
-        text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)];
-    }
-    if(check == 15) {
+    // if(check == 0) {
+    //     text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+    // }
+    if(check == 15 || check == 0) {
         text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)].split(' ').slice(0,15).join(' ');
     }
     if(check == 25) {
