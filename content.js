@@ -16,38 +16,33 @@ const paragraphs = [
 
     "The tall oak tree stood majestically in the middle of the meadow, its branches reaching towards the sky. Birds chirped happily from their perches.",
 
-   " The smell of freshly baked cookies wafted through the air, making everyone's mouths water. Laughter filled the room as friends gathered around the table.",
+    " The smell of freshly baked cookies wafted through the air, making everyone's mouths water. Laughter filled the room as friends gathered around the table.",
 
-   "The gentle breeze rustled the leaves, creating a calming melody. Flowers bloomed in vibrant colors, painting the landscape with their beauty.",
+    "The gentle breeze rustled the leaves, creating a calming melody. Flowers bloomed in vibrant colors, painting the landscape with their beauty.",
 
-   "The city streets buzzed with activity as people hurried to their destinations. Car horns honked in the distance, adding to the urban symphony.",
+    "The city streets buzzed with activity as people hurried to their destinations. Car horns honked in the distance, adding to the urban symphony.",
 
-   "The old bookstore was filled with the scent of aged paper and wisdom. Dusty shelves held stories waiting to be discovered by eager readers.",
-   
-   "The first rays of dawn painted the sky in hues of pink and orange, signaling the start of a new day. Nature awakened with a chorus of birdsong.",
+    "The old bookstore was filled with the scent of aged paper and wisdom. Dusty shelves held stories waiting to be discovered by eager readers.",
 
-   "The distant sound of waves crashing against the cliffs echoed in the quiet coastal town. Seagulls soared overhead, searching for their next meal."
+    "The first rays of dawn painted the sky in hues of pink and orange, signaling the start of a new day. Nature awakened with a chorus of birdsong.",
+
+    "The distant sound of waves crashing against the cliffs echoed in the quiet coastal town. Seagulls soared overhead, searching for their next meal."
 ]
 
-const nextText = document.getElementById('next-text');
-const text = document.getElementById('content-text');
 const word15 = document.getElementById('15');
 const word25 = document.getElementById('25');
+// const nextText = document.getElementById('next-text');
+
 let check = 0;
 
-nextText.onclick = () => {
-    // if(check == 0) {
-    //     text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)];
-    // }
-    charInd = 0;
-    inpField.value = "";
-    if(check == 15 || check == 0) {
-        text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)].split(' ').slice(0,15).join(' ');
-    }
-    if(check == 25) {
-        text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)].split(' ').slice(0,25).join(' ');
-    }
-}
+// nextText.onclick = () => {
+//     // if(check == 0) {
+//     //     text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+//     // }
+//     charInd = 0;
+//     inpField.value = "";
+//     randomParagraph();
+// }
 
 word15.addEventListener('click', () => {
     charInd = 0;
@@ -57,10 +52,10 @@ word15.addEventListener('click', () => {
         let randInd = Math.floor(Math.random() * paragraphs.length);
         let newParagraph = paragraphs[randInd];
         paragraphs[randInd].split("").forEach(span => {
-            if(count <= 15) {
+            if (count <= 15) {
                 let spanTag = `<span>${span}</span>`;
                 text.innerHTML += (spanTag);
-                if(span === ' ') {
+                if (span === ' ') {
                     count++;
                 }
             }
@@ -73,8 +68,8 @@ word15.addEventListener('click', () => {
 word25.addEventListener('click', () => {
     charInd = 0;
     inpField.value = "";
-    if(check == 0 || check == 15) {
-        text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)].split(' ').slice(0,25).join(' ');
+    if (check == 0 || check == 15) {
+        text.innerHTML = paragraphs[Math.floor(Math.random() * paragraphs.length)].split(' ').slice(0, 25).join(' ');
     }
     check = 25;
 })

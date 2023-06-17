@@ -56,12 +56,13 @@
     height: 35%;
     width: 100%;
     overflow-y: hidden;
-    display: block;
+    display: inline-flex;
     align-items: center;
-    word-break: keep-all;
+    word-break: break-all;
 }
 #typing-content::-webkit-scrollbar {
     width: 0;
+    grid-auto-columns: auto;
 }
 #typing-content p {
     font-family: 'Barlow', sans-serif;

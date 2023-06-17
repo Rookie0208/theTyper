@@ -13,7 +13,23 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="style.css">
 <style>
-    
+    .hidden-text {
+        visibility: none;
+        display: none;
+        opacity: 0;
+    }
+    .blurr-bg{
+        background-color: cadetblue;
+        position: absolute;
+        top: 10%;
+        left: 0;
+        height: 90%;
+        width: 100%;
+        backdrop-filter: blur(100px);
+    }
+    .modal-main-data .mistakes {
+        color: white;
+    }
 </style>
 <body>
     <section id="main">
@@ -36,8 +52,8 @@
             <div class="help-buttons">
                 <h4 id="time-interval">0</h4>
                 <div class="help-btn">
-                    <h3 id="time" class="color-btn">time</h3>
-                    <h3 id="word" class="active color-btn ">word</h3>
+                    <h3 id="time" class="active color-btn">time</h3>
+                    <h3 id="word" class="color-btn ">word</h3>
                     <h3 id="quote" class="color-btn ">quote</h3>
                     <h3 id="zen" class="color-btn ">zen</h3>
                     <h3 id="custom" class="color-btn ">custom</h3>
@@ -58,11 +74,14 @@
                 <p id="content-text">
                     
                 </p>
+                <!-- <p id="hidden-text">
+
+                </p> -->
             </div>
             <div class="function-btns">
                 <div class="fnc-btn">
                     <h3 id="next-text">next</h3>
-                    <h3>restart</h3>
+                    <h3 id="restart">restart</h3>
                 </div>
             </div>
         </div>
@@ -71,13 +90,13 @@
             <div class="footer-links">
                 <div class="foot-links-left">
                     <h3 id="contact"><i class="fa-solid fa-envelope"></i>Contact</h3>
-                    <h3 id="support"><i class="fa-solid fa-heart"></i>Support</h3>
+                    <!-- <h3 id="support"><i class="fa-solid fa-heart"></i>Support</h3> -->
                     <h3><a href=""><i class="fa-brands fa-github"></i>GitHub</a></h3>
                     <h3><a href=""><i class="fa-brands fa-discord"></i>Discord</a></h3>
                     <h3><a href=""><i class="fa-brands fa-twitter"></i>Twitter</a></h3>
-                    <h3><i class="fa-solid fa-file"></i>T&C</h3>
-                    <h3><i class="fa-solid fa-shield-halved"></i>Secutity</h3>
-                    <h3><i class="fa-sharp fa-solid fa-eye-slash"></i>Privacy</h3>
+                    <h3><i class="fa-solid fa-file"></i>About Me</h3>
+                    <!-- <h3><i class="fa-solid fa-shield-halved"></i>Secutity</h3> -->
+                    <!-- <h3><i class="fa-sharp fa-solid fa-eye-slash"></i>Privacy</h3> -->
     
                 </div>
                 <div class="foot-links-right">
@@ -93,14 +112,14 @@
                 <div class="modal-main-content">
                     <div class="modal-main-text">
                         <h2>Contact</h2>
-                        <p>Feel free to send an email to contact@thetyper.com. For business inquiries, email amit@thetyper.com (the buttons below will open the default mail client).
+                        <p>Feel free to send an email to <a href="">amitsr.onlymails@gmail.com </a>. For business inquiries, email amitsr0208@gmail.com (the buttons below will open the default mail client).
                             <br> <br>
                         Please do not send requests to delete account, update email, update name or clear personal bests - you can do that in the settings page.</p>
                     </div>
                     <div class="modal-main-btns">
-                        <a href="#">Question</a>
+                        <a href="#">Question??</a>
                         <a href="#">Bug Report</a>
-                        <a href="#">Business Inquiry</a>
+                        <a href="#">Hire me</a>
                         <a href="#">Feedback</a>
                         <a href="#">Account</a>
                         <a href="#">Other</a>
@@ -110,7 +129,7 @@
             </div>
         </div>
 
-        <div class="modal-container" id="modal-box2">
+        <!-- <div class="modal-container" id="modal-box2">
             <div class="modal-content" id="modal-content-box2">
                 <div class="modal-main-content">
                     <div class="modal-main-text">
@@ -128,6 +147,16 @@
                     </div>
                 </div>
                 
+            </div>
+        </div> -->
+
+        <div class="blurr-bg" id="blurr-bg-modal">
+            <div class="modal-content-main" id="modal-content-analyse">
+                <div class="modal-main-content-analyse">
+                    <div class="modal-main-data">
+                        <h4 class="mistakes">Mistakes: </h4> <span>0</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

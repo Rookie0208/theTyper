@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } 
     })
 
-    support.addEventListener('click', () => {
-        modal2.classList.add('show');
-    });
-    modal2.addEventListener('click', (event) => {
-        if(!modalContent2.contains(event.target)) {
-            modal2.classList.remove('show');
-        } 
-    })
+    // support.addEventListener('click', () => {
+    //     modal2.classList.add('show');
+    // });
+    // modal2.addEventListener('click', (event) => {
+    //     if(!modalContent2.contains(event.target)) {
+    //         modal2.classList.remove('show');
+    //     } 
+    // })
 })
