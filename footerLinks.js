@@ -6,6 +6,8 @@ const modalContent = document.getElementById('modal-content-box');
 
 const modal2 = document.getElementById('modal-box2');
 const modalContent2 = document.getElementById('modal-content-box2');
+const testPage = document.getElementById('blurr-bg-modal');
+const keyboard = document.querySelector('.fa-keyboard');
 
 document.addEventListener('DOMContentLoaded', () => {
     contact.addEventListener('click', () => {
@@ -18,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } 
     })
 
+
+
     // support.addEventListener('click', () => {
     //     modal2.classList.add('show');
     // });
@@ -27,3 +31,5 @@ document.addEventListener('DOMContentLoaded', () => {
     //     } 
     // })
 })
+
+

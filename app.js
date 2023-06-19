@@ -17,10 +17,16 @@ const nextText = document.getElementById('next-text');
 const text = document.getElementById('content-text');
 const hText = document.getElementById('hidden-text');
 const restart = document.getElementById('restart');
-const timer = document.getElementById('timer');
+const timer = document.getElementById('time-interval');
+let showTimer = document.querySelector('.show-time');
+let mistake = document.querySelector('.mistakes');
 
-let sTime = 0;
+let sTime = 15;
+let LeftTime, 
+timeLeft = sTime;
 let charInd = 0;
+let mistakes = 0;
+let isTyping = false;
 window.onload = () => {
     text.innerHTML = "";
     let randInd = Math.floor(Math.random() * paragraphs.length);
@@ -58,16 +64,26 @@ function randomParagraph() {
 
 
 function initTyping() {
+    timer.classList.remove('hide');
     const characters = text.querySelectorAll('span');
     let typedChar = inpField.value.split("")[charInd];
+    if(!isTyping) {
+        LeftTime = setInterval(initTimer, 1000);
+        isTyping = true;
+    }
+    
     if(typedChar == null) {
         charInd--;
+        if(characters[charInd].classList.contains("incorrect")) {
+            mistakes--;
+        }
         characters[charInd].classList.remove("correct", "incorrect");
     }
     else {
     if (characters[charInd].innerText == typedChar) {
         characters[charInd].classList.add("correct");
     } else {
+        mistakes++;
         characters[charInd].classList.add("incorrect");
     }
     charInd++;
@@ -75,7 +91,12 @@ function initTyping() {
     characters.forEach(span => span.classList.remove("activeBar"));
     characters[charInd].classList.add("activeBar");
     // console.log(charInd);
+    // console.log(mistakes);
+    mistake.innerText = mistakes;
+    showTimer.innerText = `${sTime}s`;
+
 }
+
 
 // function generateRandomPara(randInd) {
 //     text.innerHTML = "";
@@ -94,5 +115,33 @@ restart.addEventListener('click', () => {
     // charInd = 0;
     randomParagraph();
 })
+
+
+function initTimer() {
+    if(timeLeft > 0) {
+        timeLeft--;
+        timer.innerText = timeLeft;
+    }
+    else {
+        clearInterval(LeftTime);
+            testPage.classList.remove('hide');
+            testPage.classList.add('show');
+    }
+}
+testPage.classList.remove('show');
+testPage.classList.add('hide');
+// setTimeout(() => {
+//     testPage.classList.remove('hide');
+//     testPage.classList.add('show');
+// }, 3000);
+
+keyboard.addEventListener('click', () => {
+    testPage.classList.remove('show');
+    testPage.classList.add('hide');
+    clearTimeout(sTime);
+    timer.classList.add('hide');
+    randomParagraph();
+})
+
 inpField.addEventListener('input', initTyping);
 nextText.addEventListener('click',randomParagraph)
