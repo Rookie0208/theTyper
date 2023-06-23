@@ -20,10 +20,41 @@ const restart = document.getElementById('restart');
 const timer = document.getElementById('time-interval');
 let showTimer = document.querySelector('.show-time');
 let mistake = document.querySelector('.mistakes');
+let wrongWords = document.querySelector('.wrongWords');
+const t15 = document.getElementById('15');
+const t25 = document.getElementById('25');
+const t40 = document.getElementById('40');
+const t60 = document.getElementById('60');
+var timeEle = document.getElementsByClassName('timeEle');
+var sTime = 15;
+var timeClicked = 3;
+// document.querySelectorAll(".timeEle").forEach(function(button) {
+//     button.onclick = function() {
+//       // Get the value of the button.
+//       timeClicked = this.getAttribute('value');
+//     // console.log(timeClicked);
 
-let sTime = 15;
-let LeftTime, 
-timeLeft = sTime;
+//     };
+//   });
+
+
+for (let i = 0; i < timeEle.length; i++) {
+    timeEle[i].addEventListener('click', function () {
+        // timeEle[i].innerText
+        for (let j = 0; j < timeEle.length; j++) {
+            timeEle[j].classList.remove('active');
+        }
+        timeEle[i].classList.add('active');
+        var value = this.getAttribute('value');
+        // console.log(timeClicked);
+        timeClicked = value;
+    })
+}
+
+console.log(sTime);
+sTime = timeClicked;
+let LeftTime,
+    timeLeft = sTime;
 let charInd = 0;
 let mistakes = 0;
 let isTyping = false;
@@ -50,53 +81,77 @@ function randomParagraph() {
     let randInd = Math.floor(Math.random() * paragraphs.length);
     // generateRandomPara(randInd);
     (paragraphs[randInd].split("").forEach(span => {
-        if(span == " ") {spaceCount++;}
+        if (span == " ") { spaceCount++; }
         let spanTag = `<span>${span}</span>`;
         text.innerHTML += (spanTag);
         // console.log("spaces :", spaceCount);
     }));
     // console.log("text : " +paragraphs[randInd]);
-    
+
     document.addEventListener("keydown", () => inpField.focus());
     text.addEventListener("keydown", () => inpField.focus());
 }
 
 
-
+var mistakenWords = [];
+let m = 0;
 function initTyping() {
+    // timeLeft = sTime;
     timer.classList.remove('hide');
     const characters = text.querySelectorAll('span');
     let typedChar = inpField.value.split("")[charInd];
-    if(!isTyping) {
+    if (!isTyping) {
         LeftTime = setInterval(initTimer, 1000);
         isTyping = true;
     }
-    
-    if(typedChar == null) {
+
+    // console.log(characters[charInd].innerText)
+    if (typedChar == null) {
         charInd--;
-        if(characters[charInd].classList.contains("incorrect")) {
+        if (characters[charInd].classList.contains("incorrect")) {
+           
             mistakes--;
         }
         characters[charInd].classList.remove("correct", "incorrect");
     }
     else {
-    if (characters[charInd].innerText == typedChar) {
-        characters[charInd].classList.add("correct");
-    } else {
-        mistakes++;
-        characters[charInd].classList.add("incorrect");
+        if (characters[charInd].innerText == typedChar) {
+            characters[charInd].classList.add("correct");
+        } else {
+            mistakenWords[m] = characters[charInd].innerText;
+            // console.log(characters[charInd].innerText);
+            // console.log(mistakenWords[m]);
+            m++;
+            mistakes++;
+            characters[charInd].classList.add("incorrect");
+        }
+        charInd++;
     }
-    charInd++;
-}
     characters.forEach(span => span.classList.remove("activeBar"));
     characters[charInd].classList.add("activeBar");
     // console.log(charInd);
-    // console.log(mistakes);
+    // console.log(sTime);
+    // console.log(LeftTime);
+
     mistake.innerText = mistakes;
-    showTimer.innerText = `${sTime}s`;
+    showTimer.innerText = `${timeClicked}s`;
+    // var ul = document.createElement('h4');
+    for(let i = 0; i < mistakenWords.length; i++) {
+        var openBracket = document.createElement('span');
+        openBracket.textContent = '[';
+
+        var closeBracket = document.createElement('span');
+        closeBracket.textContent = ']';
+
+        var valueSpan = document.createElement('h6');
+        valueSpan.textContent = mistakenWords.join(', ');
+    }
+    // wrongWords.appendChild(openBracket);
+// wrongWords.appendChild(valueSpan);
+// wrongWords.appendChild(closeBracket);
 
 }
-
+// console.log(mistakenWords);
 
 // function generateRandomPara(randInd) {
 //     text.innerHTML = "";
@@ -108,7 +163,7 @@ function initTyping() {
 // resting the whole window
 restart.addEventListener('click', () => {
     charInd = 0;
-    sTime = 0;
+    sTime = timeClicked;
     // const characters = text.querySelectorAll('span');
     // charInd++;
     // characters.forEach(span => span.classList.remove("activeBar"));
@@ -118,30 +173,56 @@ restart.addEventListener('click', () => {
 
 
 function initTimer() {
-    if(timeLeft > 0) {
-        timeLeft--;
+    // timeLeft = sTime;
+    timer.innerText = "";
+    if (timeLeft > 0) {
         timer.innerText = timeLeft;
+        timeLeft--;
     }
     else {
         clearInterval(LeftTime);
-            testPage.classList.remove('hide');
-            testPage.classList.add('show');
+        if (timeLeft == 0) {
+            disableKeyboardInput();
+        }
+        testPage.classList.remove('hide');
+        testPage.classList.add('show');
     }
 }
+
+function disableKeyboardInput() {
+    // Disable keyboard input by capturing keydown events
+    document.addEventListener('keydown', preventDefault);
+}
+function enableKeyboardInput() {
+    // Disable keyboard input by capturing keydown events
+    document.removeEventListener('keydown', preventDefault);
+    sTime = timeClicked;
+    timeLeft = timeClicked;
+    isTyping = false;
+    mistakenWords = [];
+    // console.log(timeLeft);
+}
+
 testPage.classList.remove('show');
 testPage.classList.add('hide');
-// setTimeout(() => {
-//     testPage.classList.remove('hide');
-//     testPage.classList.add('show');
-// }, 3000);
 
 keyboard.addEventListener('click', () => {
+    // inpField.removeEventListener('input', disableKeyboardInput);
+    // inpField.addEventListener('input', enableKeyboardInput);
+    enableKeyboardInput();
     testPage.classList.remove('show');
     testPage.classList.add('hide');
-    clearTimeout(sTime);
+    // clearTimeout(timeLeft);
     timer.classList.add('hide');
     randomParagraph();
 })
 
+
+function preventDefault(event) {
+    event.preventDefault();
+}
+// console.log('stime ' +sTime)
+// console.log('timeclicked '+timeClicked)
+// console.log('timeleft '+timeLeft)
 inpField.addEventListener('input', initTyping);
-nextText.addEventListener('click',randomParagraph)
+nextText.addEventListener('click', randomParagraph)
