@@ -162,6 +162,7 @@ function initTyping() {
     // wrongWords.appendChild(closeBracket);
 
 }
+
 function endTypingSession() {
     clearInterval(intervalId); // Stop calculating WPM
     calculateWpm();
