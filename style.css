@@ -334,24 +334,33 @@ h3:hover, a:hover {
     opacity: 0;
     pointer-events: none;
 }
-.modal-main-data h4,span {
-    font-size: 2rem;
+.modal-main-data h4,.modal-main-data span {
+    /* font-size: 2rem; */
     color: var(--main-font-color);
 }
+.modal-main-data h4 {
+    font-size: 1.8rem;
+}
 .modal-main-data span{
-    font-size: 2.5rem;
+    font-size: 2.7rem;
     color: brown;
 }
 .modal-main-data span,h4 {
-    margin: 0.6rem 0;
+    margin: 0.2rem 0;
 }
 .modal-main-data {
     justify-content: center;
 }
 .main-result-1, .main-result-2 {
+    text-align: center;
     display: grid;
     grid-template-columns: repeat(6, 220px);
     grid-template-rows: repeat(2, 70px);
     margin-left: 3rem;
     margin-top: 5rem;
+}
+
+.main-result-1 .result1 span{
+    /* background-color: black; */
+    display: block;
 }

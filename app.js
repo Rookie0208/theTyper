@@ -11,23 +11,9 @@
 //     })
 //     })
 
-const newText = document.querySelector('.typing-text p');
-const inpField = document.querySelector('.input-field');
-const nextText = document.getElementById('next-text');
-const text = document.getElementById('content-text');
-const hText = document.getElementById('hidden-text');
-const restart = document.getElementById('restart');
-const timer = document.getElementById('time-interval');
-let showTimer = document.querySelector('.show-time');
-let mistake = document.querySelector('.mistakes');
-let wrongWords = document.querySelector('.wrongWords');
-const t15 = document.getElementById('15');
-const t25 = document.getElementById('25');
-const t40 = document.getElementById('40');
-const t60 = document.getElementById('60');
-var timeEle = document.getElementsByClassName('timeEle');
-var sTime = 15;
-var timeClicked = 3;
+// *********************************************** ACCURACY WALA SAHI KAR
+var sTime;
+var timeClicked = 15;
 // document.querySelectorAll(".timeEle").forEach(function(button) {
 //     button.onclick = function() {
 //       // Get the value of the button.
@@ -38,42 +24,51 @@ var timeClicked = 3;
 //   });
 
 
-for (let i = 0; i < timeEle.length; i++) {
-    timeEle[i].addEventListener('click', function () {
-        // timeEle[i].innerText
-        for (let j = 0; j < timeEle.length; j++) {
-            timeEle[j].classList.remove('active');
-        }
-        timeEle[i].classList.add('active');
-        var value = this.getAttribute('value');
-        // console.log(timeClicked);
-        timeClicked = value;
-    })
-}
 
-console.log(sTime);
+
+
+
+// console.log(sTime);
+let LeftTime, timeLeft;
 sTime = timeClicked;
-let LeftTime,
-    timeLeft = sTime;
 let charInd = 0;
 let mistakes = 0;
 let isTyping = false;
 window.onload = () => {
-    text.innerHTML = "";
-    let randInd = Math.floor(Math.random() * paragraphs.length);
-    // showPara();
-    (paragraphs[randInd].split("").forEach(span => {
-        let spanTag = `<span>${span}</span>`;
-        text.innerHTML += (spanTag);
-        // console.log("text : " +spanTag);
-    }));
+    // console.log(timeClicked);
 
-    document.addEventListener("keydown", () => inpField.focus());
-    text.addEventListener("keydown", () => inpField.focus());
+
+    randomParagraph();
+
+    // timeLeft = sTime;
 }
 
+function getClickedTime() {
+    clearInterval(LeftTime);
+    var value;
+    for (let i = 0; i < timeEle.length; i++) {
+        timeEle[i].addEventListener('click', function () {
+            // timeEle[i].innerText
+            for (let j = 0; j < timeEle.length; j++) {
+                timeEle[j].classList.remove('active');
+            }
+            timeEle[i].classList.add('active');
+            value = this.getAttribute('value');
+            timeClicked = parseInt(value);
+            if (!isNaN(value) && value > 0) {
+                sTime = timeClicked;
+            }
+            console.log(timeClicked);
+        })
+    }
+    timeLeft = sTime;
+    console.log("timeLeft: ", timeLeft);
+    randomParagraph();
+}
 
 function randomParagraph() {
+    clearInterval(LeftTime);
+    timer.classList.add('hide');
     charInd = 0;
     inpField.value = "";
     text.innerHTML = "";
@@ -95,11 +90,17 @@ function randomParagraph() {
 
 var mistakenWords = [];
 let m = 0;
+var totalCorrectWords = 0;
+var totalWords = 0;
+let typedChar = '';
+// let intervalId;
 function initTyping() {
     // timeLeft = sTime;
     timer.classList.remove('hide');
     const characters = text.querySelectorAll('span');
-    let typedChar = inpField.value.split("")[charInd];
+    typedChar = inpField.value.split("")[charInd];
+    // intervalId = setInterval(calculateWpm, 1000);
+    // setTimeout(endTypingSession, sTime*1000);
     if (!isTyping) {
         LeftTime = setInterval(initTimer, 1000);
         isTyping = true;
@@ -108,8 +109,8 @@ function initTyping() {
     // console.log(characters[charInd].innerText)
     if (typedChar == null) {
         charInd--;
+        totalWords--;
         if (characters[charInd].classList.contains("incorrect")) {
-           
             mistakes--;
         }
         characters[charInd].classList.remove("correct", "incorrect");
@@ -117,26 +118,36 @@ function initTyping() {
     else {
         if (characters[charInd].innerText == typedChar) {
             characters[charInd].classList.add("correct");
+            totalCorrectWords++;
+            totalWords++;
         } else {
             mistakenWords[m] = characters[charInd].innerText;
             // console.log(characters[charInd].innerText);
             // console.log(mistakenWords[m]);
             m++;
             mistakes++;
+            totalWords++;
+            totalCorrectWords--;
             characters[charInd].classList.add("incorrect");
         }
         charInd++;
     }
     characters.forEach(span => span.classList.remove("activeBar"));
     characters[charInd].classList.add("activeBar");
-    // console.log(charInd);
-    // console.log(sTime);
-    // console.log(LeftTime);
 
+
+    let totalWrongWords = totalCorrectWords - mistakes;
+    let userAccuracy = (((totalWords / totalCorrectWords) * 100) % 100).toFixed(2);
+    // console.log(totalWords);
+    // console.log(totalCorrectWords);
+    // console.log(userAccuracy);
     mistake.innerText = mistakes;
     showTimer.innerText = `${timeClicked}s`;
+    correct.innerText = totalCorrectWords;
+    // wpm.innerText = speed;
+    accuracy.innerText = `${userAccuracy}%`;
     // var ul = document.createElement('h4');
-    for(let i = 0; i < mistakenWords.length; i++) {
+    for (let i = 0; i < mistakenWords.length; i++) {
         var openBracket = document.createElement('span');
         openBracket.textContent = '[';
 
@@ -147,9 +158,18 @@ function initTyping() {
         valueSpan.textContent = mistakenWords.join(', ');
     }
     // wrongWords.appendChild(openBracket);
-// wrongWords.appendChild(valueSpan);
-// wrongWords.appendChild(closeBracket);
+    // wrongWords.appendChild(valueSpan);
+    // wrongWords.appendChild(closeBracket);
 
+}
+function endTypingSession() {
+    clearInterval(intervalId); // Stop calculating WPM
+    calculateWpm();
+}
+
+function showSpeed(speed) {
+    wpm.innerText = speed;
+    console.log("speed : " + speed);
 }
 // console.log(mistakenWords);
 
@@ -164,6 +184,7 @@ function initTyping() {
 restart.addEventListener('click', () => {
     charInd = 0;
     sTime = timeClicked;
+    // console.log("stime : ", sTime);
     // const characters = text.querySelectorAll('span');
     // charInd++;
     // characters.forEach(span => span.classList.remove("activeBar"));
@@ -171,9 +192,29 @@ restart.addEventListener('click', () => {
     randomParagraph();
 })
 
+// function calculateWpm() {
+//     const d = new Date();
+//     const endTime = d.getSeconds();
+//     console.log("endTime: "+endTime);
+//     console.log("timeleft : "+timeLeft);
+//     const totalMinutes = (endTime) / 60000;
+//     const wordss = typedChar.trim().split(/\s+/);
+//     const wordCount = wordss.length;
+//     const speed = Math.round((wordCount / totalMinutes) * 60);
+//     console.log("init speed : " +speed);
+//     showSpeed(speed);
+// }
 
+let flag = 0;
+if (flag == 0) {
+    getClickedTime();
+    console.log("clicked time :", timeClicked);
+    flag = 1;
+}
 function initTimer() {
+
     // timeLeft = sTime;
+    console.log("time left  : ", timeLeft);
     timer.innerText = "";
     if (timeLeft > 0) {
         timer.innerText = timeLeft;
@@ -182,8 +223,10 @@ function initTimer() {
     else {
         clearInterval(LeftTime);
         if (timeLeft == 0) {
+            // endTypingSession();
             disableKeyboardInput();
         }
+        flag = 0;
         testPage.classList.remove('hide');
         testPage.classList.add('show');
     }
