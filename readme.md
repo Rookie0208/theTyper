@@ -1,4 +1,4 @@
-# Typing Game Application
+# The Typer
 
 This is a typing game application where users can test their typing skills by typing random paragraphs within a specified time limit.
 
