@@ -53,7 +53,7 @@
 }
 #typing-content {
     /* background-color: black; */
-    height: 57%;
+    height: 56%;
     width: 100%;
     overflow-y: hidden;
     /* display: inline-flex; */
@@ -211,7 +211,6 @@
 #time-interval.hide {
     opacity: 0;
 }
-
 
 /* MODAL WINDOW ************************************************************************** */
 .modal-container {
@@ -392,6 +391,10 @@ h3:hover, a:hover {
 }
 
 .about-me {
+    display: flex;
+}
+
+.about-me1, .about-me2 {
     margin-top: 1.6rem;
     margin-left: 4rem;
     font-size: 1.2rem;

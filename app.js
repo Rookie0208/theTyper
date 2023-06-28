@@ -215,7 +215,7 @@ if (flag == 0) {
 function initTimer() {
 
     // timeLeft = sTime;
-    console.log("time left  : ", timeLeft);
+    // console.log("time left  : ", timeLeft);
     timer.innerText = "";
     if (timeLeft > 0) {
         timer.innerText = timeLeft;
