@@ -13,7 +13,7 @@
 
 // *********************************************** ACCURACY WALA SAHI KAR
 var sTime;
-var timeClicked = 15;
+var timeClicked = 3;
 // document.querySelectorAll(".timeEle").forEach(function(button) {
 //     button.onclick = function() {
 //       // Get the value of the button.
@@ -43,6 +43,15 @@ window.onload = () => {
     // timeLeft = sTime;
 }
 
+var mistakenWords = [];
+let m = 0;
+var totalCorrectWords = 0;
+var totalWords = 0;
+let typedChar = '';
+let intervalId;
+var spaces = 0;
+let speed = 0;
+
 function getClickedTime() {
     clearInterval(LeftTime);
     var value;
@@ -66,34 +75,29 @@ function getClickedTime() {
     randomParagraph();
 }
 
+
+
 function randomParagraph() {
     clearInterval(LeftTime);
     timer.classList.add('hide');
     charInd = 0;
+    spaces = 0, speed = 0;
     inpField.value = "";
     text.innerHTML = "";
     let spaceCount = 0;
     let randInd = Math.floor(Math.random() * paragraphs.length);
-    // generateRandomPara(randInd);
     (paragraphs[randInd].split("").forEach(span => {
         if (span == " ") { spaceCount++; }
         let spanTag = `<span>${span}</span>`;
         text.innerHTML += (spanTag);
-        // console.log("spaces :", spaceCount);
     }));
-    // console.log("text : " +paragraphs[randInd]);
 
     document.addEventListener("keydown", () => inpField.focus());
     text.addEventListener("keydown", () => inpField.focus());
 }
 
 
-var mistakenWords = [];
-let m = 0;
-var totalCorrectWords = 0;
-var totalWords = 0;
-let typedChar = '';
-// let intervalId;
+
 function initTyping() {
     // timeLeft = sTime;
     timer.classList.remove('hide');
@@ -116,6 +120,7 @@ function initTyping() {
         characters[charInd].classList.remove("correct", "incorrect");
     }
     else {
+        if(characters[charInd].innerText == ' ') { spaces++ }
         if (characters[charInd].innerText == typedChar) {
             characters[charInd].classList.add("correct");
             totalCorrectWords++;
@@ -135,6 +140,15 @@ function initTyping() {
     characters.forEach(span => span.classList.remove("activeBar"));
     characters[charInd].classList.add("activeBar");
 
+    console.log("charind : "+ charInd);
+    console.log("mistakes : "+ mistakes);
+    console.log("spaces : "+ spaces);
+    console.log("timeclicked : "+ timeClicked);
+    console.log("timeleft : "+ timeLeft);
+    speed = Math.round((((charInd - mistakes)/spaces) / (timeClicked-timeLeft)) * 60);
+    console.log("speed : "+ speed);
+
+    speed = speed < 0 || !speed || speed === Infinity ? 0 : speed;
 
     let totalWrongWords = totalCorrectWords - mistakes;
     let userAccuracy = (((totalWords / totalCorrectWords) * 100) % 100).toFixed(2);
@@ -144,7 +158,7 @@ function initTyping() {
     mistake.innerText = mistakes;
     showTimer.innerText = `${timeClicked}s`;
     correct.innerText = totalCorrectWords;
-    // wpm.innerText = speed;
+    wpm.innerText = speed;
     accuracy.innerText = `${userAccuracy}%`;
     // var ul = document.createElement('h4');
     for (let i = 0; i < mistakenWords.length; i++) {
@@ -165,7 +179,7 @@ function initTyping() {
 
 function endTypingSession() {
     clearInterval(intervalId); // Stop calculating WPM
-    calculateWpm();
+    // calculateWpm();
 }
 
 function showSpeed(speed) {
@@ -193,18 +207,24 @@ restart.addEventListener('click', () => {
     randomParagraph();
 })
 
-// function calculateWpm() {
-//     const d = new Date();
-//     const endTime = d.getSeconds();
-//     console.log("endTime: "+endTime);
-//     console.log("timeleft : "+timeLeft);
-//     const totalMinutes = (endTime) / 60000;
-//     const wordss = typedChar.trim().split(/\s+/);
-//     const wordCount = wordss.length;
-//     const speed = Math.round((wordCount / totalMinutes) * 60);
-//     console.log("init speed : " +speed);
-//     showSpeed(speed);
-// }
+function calculateWpm(timee) {
+    // const d = new Date();
+    // const endTime = d.getSeconds();
+    // console.log("endTime: "+endTime);
+    // console.log("timeclicked : "+timeClicked);
+    let totalMinutes = (timee) / 60;
+    // const wordss = typedChar.trim().split(/\s+/);
+    // console.log("wordss : "+wordss);
+    console.log("totalMinutes : "+totalMinutes);
+    // const wordCount = wordss.length;
+    console.log("charind : "+ charInd);
+    console.log("mistakes : "+ mistakes);
+    console.log("spaces : "+ spaces);
+    console.log("timeclicked : "+ timeClicked);
+    console.log("timee : "+ timee);
+    // let speed = Math.floor((((charInd - mistakes)/spaces) / (timeClicked-timee)));
+    // showSpeed(speed);
+}
 
 let flag = 0;
 if (flag == 0) {
@@ -213,9 +233,8 @@ if (flag == 0) {
     flag = 1;
 }
 function initTimer() {
-
+    // if(timeLeft != 0) {calculateWpm(timeLeft);}
     // timeLeft = sTime;
-    // console.log("time left  : ", timeLeft);
     timer.innerText = "";
     if (timeLeft > 0) {
         timer.innerText = timeLeft;
@@ -224,7 +243,7 @@ function initTimer() {
     else {
         clearInterval(LeftTime);
         if (timeLeft == 0) {
-            // endTypingSession();
+            endTypingSession();
             disableKeyboardInput();
         }
         flag = 0;
@@ -244,19 +263,15 @@ function enableKeyboardInput() {
     timeLeft = timeClicked;
     isTyping = false;
     mistakenWords = [];
-    // console.log(timeLeft);
 }
 
 testPage.classList.remove('show');
 testPage.classList.add('hide');
 
 keyboard.addEventListener('click', () => {
-    // inpField.removeEventListener('input', disableKeyboardInput);
-    // inpField.addEventListener('input', enableKeyboardInput);
     enableKeyboardInput();
     testPage.classList.remove('show');
     testPage.classList.add('hide');
-    // clearTimeout(timeLeft);
     timer.classList.add('hide');
     randomParagraph();
 })
@@ -265,8 +280,5 @@ keyboard.addEventListener('click', () => {
 function preventDefault(event) {
     event.preventDefault();
 }
-// console.log('stime ' +sTime)
-// console.log('timeclicked '+timeClicked)
-// console.log('timeleft '+timeLeft)
 inpField.addEventListener('input', initTyping);
 nextText.addEventListener('click', randomParagraph)
